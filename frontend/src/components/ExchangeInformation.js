@@ -22,7 +22,29 @@ class ExchangeInformation extends Component {
     //     loaded: true
     //   })
     // );
+    this.fetchExchangeData();
   }
+
+  fetchExchangeData() {
+    const apiUrl = `http://localhost:3000/travel/exchange?location=${this.props.searchResult}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        this.setState({
+          exchangeData: response.data,
+          loaded: true,
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching exchange data:', error);
+        this.setState({
+          exchangeData: null,
+          loaded: true,
+        });
+      });
+  }
+
 
   render () {
     //provide implementation for the render function to render the HTML for the ProgrammingLanguage component

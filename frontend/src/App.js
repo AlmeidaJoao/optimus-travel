@@ -22,6 +22,9 @@ class TravelAssistantApp extends Component {
   }
 
   render () {    
+
+    const {showCards, searchResult } = this.state
+
     return (
       <main role="main">
         <div class="jumbotron">
@@ -34,20 +37,23 @@ class TravelAssistantApp extends Component {
         <div class="container">
 
           <div>
-            <SearchBar/>
+            <SearchBar onSearch={this.handleSearch}/>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <WeatherInformation id="weather"/>
-            </div>
+          {showCards && (
+                     <div class="row">
+                     <div class="col-md-4">
+                       <WeatherInformation id="weather"/>
+                     </div>
+         
+                     <div class="col-md-4">
+                       <ExchangeInformation id="exchange"/>
+                     </div>
+                     <div class="col-md-4">
+                       <PopulationInformation id="population"/>
+                     </div>
+                   </div> 
+          )}
 
-            <div class="col-md-4">
-              <ExchangeInformation id="exchange"/>
-            </div>
-            <div class="col-md-4">
-              <PopulationInformation id="population"/>
-            </div>
-          </div>
         </div>
       </main>
     )

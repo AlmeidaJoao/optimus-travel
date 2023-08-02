@@ -9,7 +9,7 @@ class WeatherInformation extends Component {
     this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
 
     this.state = {
-      language: {},
+      weatherData: null,
       loaded: false
     }
   }
@@ -22,6 +22,33 @@ class WeatherInformation extends Component {
     //     loaded: true
     //   })
     // );
+    if (this.props.searchResult) {
+      this.fetchWeatherdata();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.searchResult !== prevProps.searchResult) {
+      this.fetchWeatherdata();
+    }
+  }
+
+  fetchWeatherdata() {
+    const apiUrl = `http://localhost:3000/travel/weather?location=${this.props.searchResult}`;
+    
+    axios.get(apiUrl).then((response) => {
+      this.setState({
+        weatherData: response.data,
+        loaded: true
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching weather data:', error);
+      this.setState({
+        weatherData: null,
+        loaded: false
+      })
+    })
   }
 
   render () {

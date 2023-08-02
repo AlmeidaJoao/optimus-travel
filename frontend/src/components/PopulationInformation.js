@@ -9,7 +9,7 @@ class PopulationInformation extends Component {
     this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
 
     this.state = {
-      language: {},
+      populatioonData: null,
       loaded: false
     }
   }
@@ -22,6 +22,27 @@ class PopulationInformation extends Component {
     //     loaded: true
     //   })
     // );
+    this.fetchPopulationData();
+  }
+
+  fetchPopulationData() {
+    const apiUrl = `http://localhost:3000/travel/population?location=${this.props.searchResult}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        this.setState({
+          populationData: response.data,
+          loaded: true,
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching population data:', error);
+        this.setState({
+          populationData: null,
+          loaded: true,
+        });
+      }); 
   }
 
   render () {
