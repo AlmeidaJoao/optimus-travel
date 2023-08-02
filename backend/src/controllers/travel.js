@@ -4,7 +4,7 @@ const countriesList = require('countries-list').countries
 
 exports.forecast = async(req, res) => {
   try {
-    const location = req.body.location
+    const location = req.query.location
     const {lat, lon} = await coordinates(location)
     const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${process.env.OPEN_WEATHER_API}&lang=pt&units=metric`
     const response = await axios.get(URL)
@@ -32,7 +32,7 @@ exports.forecast = async(req, res) => {
 
 exports.exchange = async(req, res) => {
   try {
-    const location = req.body.location
+    const location = req.query.location
     const {country_code} = await coordinates(location)
     const currency_code = countriesList[country_code.toString().toUpperCase()]["currency"]
     const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
@@ -50,7 +50,7 @@ exports.exchange = async(req, res) => {
 
 exports.population = async(req, res) => {
   try {
-    const location = req.body.location
+    const location = req.query.location
     const {country_code} = await coordinates(location)
 
     // SP.POP.TOTL -> Population
