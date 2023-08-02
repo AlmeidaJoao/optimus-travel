@@ -14,7 +14,7 @@ class WeatherInformation extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount (prevProps) {
     //provide implementation to request language details for current language from the API server
     // axios.get(`http://${this.APIHOSTPORT}/languages/${this.props.id}`).then(
     //   response => this.setState({
@@ -22,13 +22,14 @@ class WeatherInformation extends Component {
     //     loaded: true
     //   })
     // );
-    if (this.props.searchResult) {
-      this.fetchWeatherdata();
-    }
+ 
+    this.fetchWeatherdata();
+ 
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.searchResult !== prevProps.searchResult) {
+      this.setState({ loaded: false})
       this.fetchWeatherdata();
     }
   }
@@ -36,7 +37,9 @@ class WeatherInformation extends Component {
   fetchWeatherdata() {
     const apiUrl = `http://localhost:3000/travel/weather?location=${this.props.searchResult}`;
     
-    axios.get(apiUrl).then((response) => {
+    axios
+    .get(apiUrl)
+    .then((response) => {
       this.setState({
         weatherData: response.data,
         loaded: true
@@ -46,7 +49,7 @@ class WeatherInformation extends Component {
       console.error('Error fetching weather data:', error);
       this.setState({
         weatherData: null,
-        loaded: false
+        loaded: true
       })
     })
   }
@@ -57,21 +60,31 @@ class WeatherInformation extends Component {
     //   var usecase = this.state.language.codedetail.usecase;
     //   var rank = this.state.language.codedetail.rank;
     //   var homepage = this.state.language.codedetail.homepage;
+    const { weatherData, loaded } = this.state;
+    if (!loaded) {
+      return <div>Loading...</div>;
+    }
+
+    if (!weatherData) {
+      return <div>No weather data available for this location.</div>;
+    }
+    const { temperature, pressure, humidity, wind_speed, description } = weatherData[0];
+    const { min_temp, max_temp, daily_description } = weatherData[1];
 
       return (
         <div class="container">
           <h2>{this.props.name}</h2>
           {/* <p><Vote id={this.props.id}/></p> */}
 
-          <p><b>Current temp.</b>: Almeida</p>
-          <p><b>Current atmospheric pressure</b>: Almeida</p>
-          <p><b>Humidity</b>: Almeida</p>
-          <p><b>Wind Speed</b>: Almeida</p>
-          <p><b>Description</b>: Almeida</p>
+          <p><b>Current temp.</b>: {temperature} </p>
+          <p><b>Current atmospheric pressure</b>: {pressure}</p>
+          <p><b>Humidity</b>: {humidity}</p>
+          <p><b>Wind Speed</b>: {wind_speed}</p>
+          <p><b>Description</b>: {description}</p>
           <p><b></b>------Entire Day-------</p>
-          <p><b>Maximimum temperature</b>: Almeida</p>
-          <p><b>Minimum temperature</b>: Almeida</p>
-          <p><b>Rest of the day</b>: Almeida</p>
+          <p><b>Maximimum temperature</b>: {max_temp}</p>
+          <p><b>Minimum temperature</b>: {min_temp}</p>
+          <p><b>Rest of the day</b>: {daily_description}</p>
 
           
           <div class="container">
@@ -86,7 +99,6 @@ class WeatherInformation extends Component {
         </div>
       )
     // }
-    return <div></div>;
   }
 }
 

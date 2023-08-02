@@ -42,14 +42,14 @@ class TravelAssistantApp extends Component {
           {showCards && (
                      <div class="row">
                      <div class="col-md-4">
-                       <WeatherInformation id="weather"/>
+                       <WeatherInformation id="weather" searchResult={searchResult}/>
                      </div>
          
                      <div class="col-md-4">
-                       <ExchangeInformation id="exchange"/>
+                       <ExchangeInformation id="exchange" searchResult={searchResult}/>
                      </div>
                      <div class="col-md-4">
-                       <PopulationInformation id="population"/>
+                       <PopulationInformation id="population" searchResult={searchResult}/>
                      </div>
                    </div> 
           )}

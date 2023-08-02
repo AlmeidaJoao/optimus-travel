@@ -9,7 +9,7 @@ class PopulationInformation extends Component {
     this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
 
     this.state = {
-      populatioonData: null,
+      populationData: null,
       loaded: false
     }
   }
@@ -24,6 +24,14 @@ class PopulationInformation extends Component {
     // );
     this.fetchPopulationData();
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.searchResult !== prevProps.searchResult) {
+      this.setState({ loaded: false})
+      this.fetchPopulationData();
+    }
+  }
+
 
   fetchPopulationData() {
     const apiUrl = `http://localhost:3000/travel/population?location=${this.props.searchResult}`;
@@ -51,14 +59,22 @@ class PopulationInformation extends Component {
     //   var usecase = this.state.language.codedetail.usecase;
     //   var rank = this.state.language.codedetail.rank;
     //   var homepage = this.state.language.codedetail.homepage;
+    const { populationData, loaded } = this.state;
+    if (!loaded) {
+      return <div>Loading...</div>;
+    }
 
+    if (!populationData) {
+      return <div>No weather data available for this location.</div>;
+    }
+    const { population, gdp } = populationData
       return (
         <div class="container">
           <h2>{this.props.name}</h2>
           {/* <p><Vote id={this.props.id}/></p> */}
 
-          <p><b>Population</b>: Almeida</p>
-          <p><b>GDP</b>: Almeida</p>
+          <p><b>Population</b>: {population}</p>
+          <p><b>GDP</b>: {gdp}</p>
           
           <div class="container">
             <div class="row">
@@ -72,7 +88,6 @@ class PopulationInformation extends Component {
         </div>
       )
     // }
-    return <div></div>;
   }
 }
 

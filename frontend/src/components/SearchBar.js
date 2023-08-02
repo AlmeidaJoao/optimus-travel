@@ -20,7 +20,7 @@ const SearchBar = ({ onSearch }) => {
   return (
     <>
       <MDBInputGroup className='mb-3'>
-        <input className='form-control' placeholder="Introduza o lugar para qual deseja viajar" type='text' />
+        <input className='form-control' type='text' value={searchQuery} onChange={handleChange} placeholder="Introduza o lugar para qual deseja viajar"/>
         <MDBBtn outline onClick={handleSearch}>Pesquisar</MDBBtn>
       </MDBInputGroup>
     </>

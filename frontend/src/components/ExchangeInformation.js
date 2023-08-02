@@ -25,6 +25,14 @@ class ExchangeInformation extends Component {
     this.fetchExchangeData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.searchResult !== prevProps.searchResult) {
+      this.setState({ loaded: false})
+      this.fetchExchangeData();
+    }
+  }
+
+
   fetchExchangeData() {
     const apiUrl = `http://localhost:3000/travel/exchange?location=${this.props.searchResult}`;
 
@@ -52,13 +60,21 @@ class ExchangeInformation extends Component {
     //   var usecase = this.state.language.codedetail.usecase;
     //   var rank = this.state.language.codedetail.rank;
     //   var homepage = this.state.language.codedetail.homepage;
+    const { exchangeData, loaded } = this.state;
+    if (!loaded) {
+      return <div>Loading...</div>;
+    }
 
+    if (!exchangeData) {
+      return <div>No weather data available for this location.</div>;
+    }
+    const {base} = exchangeData;
       return (
         <div class="container">
           <h2>{this.props.name}</h2>
           {/* <p><Vote id={this.props.id}/></p> */}
 
-          <p><b>Current temp.</b>: Almeida</p>
+          <p><b>Current temp.</b>: {base}</p>
           <p><b>Current atmospheric pressure</b>: Almeida</p>
           <p><b>Humidity</b>: Almeida</p>
           <p><b>Wind Speed</b>: Almeida</p>
@@ -77,7 +93,6 @@ class ExchangeInformation extends Component {
         </div>
       )
     // }
-    return <div></div>;
   }
 }
 

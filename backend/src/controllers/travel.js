@@ -33,8 +33,9 @@ exports.forecast = async(req, res) => {
 exports.exchange = async(req, res) => {
   try {
     const location = req.query.location
+    console.log(location)
     const {country_code} = await coordinates(location)
-    const currency_code = countriesList[country_code.toString().toUpperCase()]["currency"]
+    const currency_code = countriesList[country_code.substring(0, 2).toString().toUpperCase()]["currency"]
     const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
 
     const response = await axios.get(URL)
@@ -55,8 +56,8 @@ exports.population = async(req, res) => {
 
     // SP.POP.TOTL -> Population
     // NY.GDP.PCAP.CD -> GDP
-    const population_url = `https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json`
-    const gdp_url = `https://api.worldbank.org/v2/country/${country_code}/indicator/NY.GDP.PCAP.CD?format=json`
+    const population_url = `https://api.worldbank.org/v2/country/${country_code.substring(0, 2)}/indicator/SP.POP.TOTL?format=json`
+    const gdp_url = `https://api.worldbank.org/v2/country/${country_code.substring(0, 2)}/indicator/NY.GDP.PCAP.CD?format=json`
     
     let response = await axios.get(population_url)
     const  population = response.data[1][0]["value"]
@@ -82,8 +83,10 @@ const coordinates = async(location) => {
   let country_code = ''
   try {
     const response = await axios.get(URL)
+
+    console.log(response)
     if(response.data.features.length === 0 ) {
-      res.status(400).send("Invalid location")
+      throw new Error ("Invalid location")
     }
 
     const lat = response.data.features[0].center[1]
@@ -96,6 +99,7 @@ const coordinates = async(location) => {
     else {
       country_code = response.data.features[0].context[0].short_code
     }
+    console.log(country_code)
 
     return {
       lat,
