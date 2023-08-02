@@ -8,6 +8,4 @@ router.get('/travel/weather', travelController.forecast)
 router.get('/travel/exchange', travelController.exchange)
 router.get('/travel/population', travelController.population)
 
-
-
 module.exports = router

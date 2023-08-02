@@ -43,6 +43,7 @@ exports.exchange = async(req, res) => {
       rates: response.data.rates
     })
   } catch (e) {
+    console.log(e)
     res.status(400).send(e)
   }
 }
@@ -77,10 +78,10 @@ exports.population = async(req, res) => {
 // Helper function to get coordinates of a given location
 const coordinates = async(location) => {
   const URL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${process.env.MAP_BOX_API}` 
-  
+
+  let country_code = ''
   try {
     const response = await axios.get(URL)
-
     if(response.data.features.length === 0 ) {
       res.status(400).send("Invalid location")
     }
@@ -88,7 +89,13 @@ const coordinates = async(location) => {
     const lat = response.data.features[0].center[1]
     const lon = response.data.features[0].center[0]
     const location = response.data.features[0].place_name
-    const country_code = response.data.features[0].context[0].short_code
+
+    if (response.data.features[0].place_type[0] === 'country') {
+      country_code = response.data.features[0].properties['short_code']
+    } 
+    else {
+      country_code = response.data.features[0].context[0].short_code
+    }
 
     return {
       lat,
@@ -97,6 +104,7 @@ const coordinates = async(location) => {
       country_code
     }
   } catch (e) {
+    console.log(e)
     throw new Error("Location Services Unavailable")
   } 
 }
