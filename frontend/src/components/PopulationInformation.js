@@ -15,13 +15,6 @@ class PopulationInformation extends Component {
   }
 
   componentDidMount () {
-    //provide implementation to request language details for current language from the API server
-    // axios.get(`http://${this.APIHOSTPORT}/languages/${this.props.id}`).then(
-    //   response => this.setState({
-    //     language: response.data,
-    //     loaded: true
-    //   })
-    // );
     this.fetchPopulationData();
   }
 
@@ -54,11 +47,6 @@ class PopulationInformation extends Component {
   }
 
   render () {
-    //provide implementation for the render function to render the HTML for the ProgrammingLanguage component
-    // if (this.state.loaded) {
-    //   var usecase = this.state.language.codedetail.usecase;
-    //   var rank = this.state.language.codedetail.rank;
-    //   var homepage = this.state.language.codedetail.homepage;
     const { populationData, loaded } = this.state;
     if (!loaded) {
       return <div>Loading...</div>;
@@ -71,7 +59,6 @@ class PopulationInformation extends Component {
       return (
         <div class="container">
           <h2>{this.props.name}</h2>
-          {/* <p><Vote id={this.props.id}/></p> */}
 
           <p><b>Population</b>: {population}</p>
           <p><b>GDP</b>: {gdp}</p>
@@ -80,7 +67,7 @@ class PopulationInformation extends Component {
             <div class="row">
               <div class="col">
                 <div class="parent">
-                  <img src alt="logo" class="center-block"/>
+                  {/* <img src alt="logo" class="center-block"/> */}
                 </div>
               </div>
             </div>
@@ -91,5 +78,4 @@ class PopulationInformation extends Component {
   }
 }
 
-//export the ProgrammingLanguage class, allows the VoteApp component to import it
 export default PopulationInformation;

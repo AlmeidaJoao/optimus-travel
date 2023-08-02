@@ -15,14 +15,6 @@ class WeatherInformation extends Component {
   }
 
   componentDidMount (prevProps) {
-    //provide implementation to request language details for current language from the API server
-    // axios.get(`http://${this.APIHOSTPORT}/languages/${this.props.id}`).then(
-    //   response => this.setState({
-    //     language: response.data,
-    //     loaded: true
-    //   })
-    // );
- 
     this.fetchWeatherdata();
  
   }
@@ -55,11 +47,6 @@ class WeatherInformation extends Component {
   }
 
   render () {
-    //provide implementation for the render function to render the HTML for the ProgrammingLanguage component
-    // if (this.state.loaded) {
-    //   var usecase = this.state.language.codedetail.usecase;
-    //   var rank = this.state.language.codedetail.rank;
-    //   var homepage = this.state.language.codedetail.homepage;
     const { weatherData, loaded } = this.state;
     if (!loaded) {
       return <div>Loading...</div>;
@@ -68,8 +55,8 @@ class WeatherInformation extends Component {
     if (!weatherData) {
       return <div>No weather data available for this location.</div>;
     }
-    const { temperature, pressure, humidity, wind_speed, description } = weatherData[0];
-    const { min_temp, max_temp, daily_description } = weatherData[1];
+    const { temperature, pressure, humidity, wind_speed, description, icon } = weatherData[0];
+    const { min_temp, max_temp, daily_description, daily_icon } = weatherData[1];
 
       return (
         <div class="container">
@@ -91,7 +78,7 @@ class WeatherInformation extends Component {
             <div class="row">
               <div class="col">
                 <div class="parent">
-                  <img src alt="logo" class="center-block"/>
+                  <img src={`http://openweathermap.org/img/wn/${daily_icon}@2x.png`} alt="logo" class="center-block"/>
                 </div>
               </div>
             </div>
@@ -102,5 +89,4 @@ class WeatherInformation extends Component {
   }
 }
 
-//export the ProgrammingLanguage class, allows the VoteApp component to import it
 export default WeatherInformation;
