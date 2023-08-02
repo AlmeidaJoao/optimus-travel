@@ -51,19 +51,24 @@ exports.population = async(req, res) => {
   try {
     const location = req.body.location
     const {country_code} = await coordinates(location)
-    const currency_code = countriesList[country_code.toString().toUpperCase()]["currency"]
+
     // SP.POP.TOTL -> Population
     // NY.GDP.PCAP.CD -> GDP
-    // https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json
-    // https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json
-    const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
+    const population_url = `https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json`
+    const gdp_url = `https://api.worldbank.org/v2/country/${country_code}/indicator/NY.GDP.PCAP.CD?format=json`
+    
+    let response = await axios.get(population_url)
+    const  population = response.data[1][0]["value"]
+    
+    response = await axios.get(gdp_url)
+    const gdp = response.data[1][0]["value"]
 
-    const response = await axios.get(URL)
     res.send({
-      base: response.data.base,
-      rates: response.data.rates
+      population,
+      gdp
     })
   } catch (e) {
+    console.log(e)
     res.status(400).send(e)
   }
 }
