@@ -1,6 +1,6 @@
 require('dotenv').config({ path: 'config/.env' })
 const axios = require('axios')
-const countries = require('countries-list')
+const countriesList = require('countries-list').countries
 
 exports.forecast = async(req, res) => {
   try {
@@ -33,13 +33,41 @@ exports.forecast = async(req, res) => {
 exports.exchange = async(req, res) => {
   try {
     const location = req.body.location
-    const {country_code} = coordinates(location)
-    const currency_code = countries.countries(country_code)
-    res.send(currency_code)
+    const {country_code} = await coordinates(location)
+    const currency_code = countriesList[country_code.toString().toUpperCase()]["currency"]
+    const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
+
+    const response = await axios.get(URL)
+    res.send({
+      base: response.data.base,
+      rates: response.data.rates
+    })
   } catch (e) {
-    res.status(404).send(e)
+    res.status(400).send(e)
   }
 }
+
+exports.population = async(req, res) => {
+  try {
+    const location = req.body.location
+    const {country_code} = await coordinates(location)
+    const currency_code = countriesList[country_code.toString().toUpperCase()]["currency"]
+    // SP.POP.TOTL -> Population
+    // NY.GDP.PCAP.CD -> GDP
+    // https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json
+    // https://api.worldbank.org/v2/country/${country_code}/indicator/SP.POP.TOTL?format=json
+    const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
+
+    const response = await axios.get(URL)
+    res.send({
+      base: response.data.base,
+      rates: response.data.rates
+    })
+  } catch (e) {
+    res.status(400).send(e)
+  }
+}
+
 
 // Helper function to get coordinates of a given location
 const coordinates = async(location) => {
