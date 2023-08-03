@@ -97,7 +97,7 @@ B --> |Push Image to DockerHub| C[Docker registry]
  ```
 
 ## Demo
-If you are just curious to see a running version of the App, check the following link: [Optimus Travel](http://optimus-trave.almeidadealmeida.com/)
+If you are just curious to see a running version of the App, check the following link: [Optimus Travel](http://optimus-travel.almeidadealmeida.com/)
 
 ## Documentation
 Documentation regarding the API can be found on the link below:
