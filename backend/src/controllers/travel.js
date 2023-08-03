@@ -58,7 +58,6 @@ exports.exchange = async(req, res) => {
       rates: response.data.rates
     })
   } catch (e) {
-    console.log(e)
     res.status(400).send(e)
   }
 }
@@ -92,7 +91,6 @@ exports.population = async(req, res) => {
       gdp
     })
   } catch (e) {
-    console.log(e)
     res.status(400).send(e)
   }
 }
@@ -112,7 +110,6 @@ const coordinates = async(location) => {
   try {
     const response = await axios.get(URL)
 
-    console.log(response)
     if(response.data.features.length === 0 ) {
       throw new Error ("Invalid location")
     }
@@ -136,7 +133,6 @@ const coordinates = async(location) => {
       country_code
     }
   } catch (e) {
-    console.log(e)
     throw new Error("Location Services Unavailable")
   } 
 }
