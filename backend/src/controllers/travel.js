@@ -12,7 +12,7 @@ const countriesList = require('countries-list').countries
 exports.forecast = async(req, res) => {
   try {
     const location = req.query.location
-    const {lat, lon} = await coordinates(location)
+    const {lat, lon, placeName} = await coordinates(location)
     const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${process.env.OPEN_WEATHER_API}&lang=pt&units=metric`
     const response = await axios.get(URL)
     
@@ -31,7 +31,7 @@ exports.forecast = async(req, res) => {
       daily_icon: response.data.daily[0].weather[0].icon
     }
     
-    res.send([current_weather, daily_data])
+    res.send({weather: [current_weather, daily_data], placeName: placeName})
   } catch (e) {
     res.status(400).send(e)
   }
@@ -47,15 +47,15 @@ exports.forecast = async(req, res) => {
 exports.exchange = async(req, res) => {
   try {
     const location = req.query.location
-    console.log(location)
-    const {country_code} = await coordinates(location)
+    const {country_code, placeName} = await coordinates(location)
     const currency_code = countriesList[country_code.substring(0, 2).toString().toUpperCase()]["currency"]
     const URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.RATE_API}&symbols=${currency_code}`
 
     const response = await axios.get(URL)
     res.send({
       base: response.data.base,
-      rates: response.data.rates
+      rates: response.data.rates,
+      placeName
     })
   } catch (e) {
     res.status(400).send(e)
@@ -73,7 +73,7 @@ exports.exchange = async(req, res) => {
 exports.population = async(req, res) => {
   try {
     const location = req.query.location
-    const {country_code} = await coordinates(location)
+    const {country_code, placeName} = await coordinates(location)
 
     // SP.POP.TOTL -> Population
     // NY.GDP.PCAP.CD -> GDP
@@ -88,7 +88,8 @@ exports.population = async(req, res) => {
 
     res.send({
       population,
-      gdp
+      gdp, 
+      placeName 
     })
   } catch (e) {
     res.status(400).send(e)
@@ -116,7 +117,7 @@ const coordinates = async(location) => {
 
     const lat = response.data.features[0].center[1]
     const lon = response.data.features[0].center[0]
-    const location = response.data.features[0].place_name
+    const placeName = response.data.features[0].place_name
 
     if (response.data.features[0].place_type[0] === 'country') {
       country_code = response.data.features[0].properties['short_code']
@@ -124,12 +125,10 @@ const coordinates = async(location) => {
     else {
       country_code = response.data.features[0].context[0].short_code
     }
-    console.log(country_code)
-
     return {
       lat,
       lon,
-      location,
+      placeName,
       country_code
     }
   } catch (e) {

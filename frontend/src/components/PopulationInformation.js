@@ -50,7 +50,7 @@ class PopulationInformation extends Component {
     }
 
     if (!populationData) {
-      return <div>No weather data available for this location.</div>;
+      return <div>No Population data available for this location.</div>;
     }
     const { population, gdp } = populationData
       return (

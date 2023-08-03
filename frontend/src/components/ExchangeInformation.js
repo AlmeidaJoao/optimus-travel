@@ -51,7 +51,7 @@ class ExchangeInformation extends Component {
     }
 
     if (!exchangeData) {
-      return <div>No weather data available for this location.</div>;
+      return <div>No Exchange data available for this location.</div>;
     }
     const {base, rates} = exchangeData;
       return (

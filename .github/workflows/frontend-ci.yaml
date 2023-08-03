@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' 
+
+      - name: Login to Docker Hub
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Build Static files
+        run: |
+          cd frontend
+          npm install 
+          npm run build 
+
+      - name: Build Docker image
+        run: |
+          cd frontend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/optimus-travel-front-end:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/optimus-travel-front-end:latest

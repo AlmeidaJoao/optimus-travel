@@ -52,14 +52,16 @@ class WeatherInformation extends Component {
     if (!weatherData) {
       return <div>No weather data available for this location.</div>;
     }
-    const { temperature, pressure, humidity, wind_speed, description, icon } = weatherData[0];
-    const { min_temp, max_temp, daily_description, daily_icon } = weatherData[1];
+    const { temperature, pressure, humidity, wind_speed, description, icon } = weatherData['weather'][0];
+    const { min_temp, max_temp, daily_description, daily_icon } = weatherData['weather'][1];
+    const { placeName } = weatherData;
 
       return (
         <div class="container">
           <h2>{this.props.name}</h2>
           {/* <p><Vote id={this.props.id}/></p> */}
 
+          <p><b>Location name</b>: {placeName} </p>
           <p><b>Current temp.</b>: {temperature} </p>
           <p><b>Current atmospheric pressure</b>: {pressure}</p>
           <p><b>Humidity</b>: {humidity}</p>
