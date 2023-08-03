@@ -27,9 +27,9 @@ spec:
     spec:
       containers:
       - name: frontend
-        env:
-        - name: REACT_APP_APIHOSTPORT
-          value: http://52.226.198.63:3000
+        # env:
+        # - name: REACT_APP_APIHOSTPORT
+        #   value: http://52.226.198.63:3000
         image: nijusupai/optimus-travel-front-end:latest
         ports:
         - containerPort: 80
