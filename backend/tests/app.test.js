@@ -53,7 +53,7 @@ test('Should not get not logged user info', async () => {
 })
 
 test('Should log out user from all active sessions', async () => {
-  await request(app).post('/users/logout-all')
+  await request(app).post('/users/logout')
     .set('Authorization', `Bearer ${userOneTokenId}`)
     .send()
     .expect(200)

@@ -5,9 +5,6 @@ class PopulationInformation extends Component {
   constructor () {
     super();
 
-    //configure the APIHOSTPORT, this is the public IP address of the host that the API server is running on
-    this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
-
     this.state = {
       populationData: null,
       loaded: false
@@ -27,7 +24,7 @@ class PopulationInformation extends Component {
 
 
   fetchPopulationData() {
-    const apiUrl = `http://localhost:3000/travel/population?location=${this.props.searchResult}`;
+    const apiUrl = `${process.env.REACT_APP_APIHOSTPORT}/travel/population?location=${this.props.searchResult}`;
 
     axios
       .get(apiUrl)

@@ -5,9 +5,6 @@ class ExchangeInformation extends Component {
   constructor () {
     super();
 
-    //configure the APIHOSTPORT, this is the public IP address of the host that the API server is running on
-    this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
-
     this.state = {
       language: {},
       loaded: false
@@ -27,7 +24,7 @@ class ExchangeInformation extends Component {
 
 
   fetchExchangeData() {
-    const apiUrl = `http://localhost:3000/travel/exchange?location=${this.props.searchResult}`;
+    const apiUrl = `${process.env.REACT_APP_APIHOSTPORT}/travel/exchange?location=${this.props.searchResult}`;
 
     axios
       .get(apiUrl)

@@ -2,6 +2,13 @@ require('dotenv').config({ path: 'config/.env' })
 const axios = require('axios')
 const countriesList = require('countries-list').countries
 
+/**
+ * Retrieves weather forecast data for a given location using the OpenWeatherMap API and Mapbox Geocoding API.
+ * @async
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @returns {Promise<void>}
+ */
 exports.forecast = async(req, res) => {
   try {
     const location = req.query.location
@@ -30,6 +37,13 @@ exports.forecast = async(req, res) => {
   }
 }
 
+/**
+ * Retrieves exchange rates for the currency of the given location using Exchange Rates API and Mapbox Geocoding API.
+ * @async
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @returns {Promise<void>}
+ */
 exports.exchange = async(req, res) => {
   try {
     const location = req.query.location
@@ -49,6 +63,14 @@ exports.exchange = async(req, res) => {
   }
 }
 
+
+/**
+ * Retrieves population and GDP data for a given location using World Bank API and Mapbox Geocoding API.
+ * @async
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @returns {Promise<void>}
+ */
 exports.population = async(req, res) => {
   try {
     const location = req.query.location
@@ -76,7 +98,13 @@ exports.population = async(req, res) => {
 }
 
 
-// Helper function to get coordinates of a given location
+/**
+ * Fetches the coordinates and location information for a given location using the Mapbox Geocoding API.
+ * @async
+ * @param {string} location - The location to be geocoded.
+ * @returns {Promise<{ lat: number, lon: number, location: string, country_code: string }>} An object containing latitude, longitude, location name, and country code.
+ * @throws {Error} If the location is invalid or the Location Services are unavailable.
+ */
 const coordinates = async(location) => {
   const URL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${process.env.MAP_BOX_API}` 
 

@@ -4,10 +4,7 @@ import axios from 'axios';
 class WeatherInformation extends Component {
   constructor () {
     super();
-
-    //configure the APIHOSTPORT, this is the public IP address of the host that the API server is running on
-    this.APIHOSTPORT = `${process.env.REACT_APP_APIHOSTPORT}`;
-
+    
     this.state = {
       weatherData: null,
       loaded: false
@@ -27,7 +24,7 @@ class WeatherInformation extends Component {
   }
 
   fetchWeatherdata() {
-    const apiUrl = `http://localhost:3000/travel/weather?location=${this.props.searchResult}`;
+    const apiUrl = `${process.env.REACT_APP_APIHOSTPORT}/travel/weather?location=${this.props.searchResult}`;
     
     axios
     .get(apiUrl)
@@ -72,6 +69,7 @@ class WeatherInformation extends Component {
           <p><b>Maximimum temperature</b>: {max_temp}</p>
           <p><b>Minimum temperature</b>: {min_temp}</p>
           <p><b>Rest of the day</b>: {daily_description}</p>
+          {/* <p><img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="logo" class="center-block"/></p> */}
 
           
           <div class="container">
