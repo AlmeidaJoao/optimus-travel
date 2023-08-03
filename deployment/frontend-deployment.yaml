@@ -1,46 +1,37 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-svc
-spec:
-  type: LoadBalancer
-  selector:
-    app: optimus-travel-backend
-  ports:
-    - port: 3000
-      targetPort: 3000
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: optimus-travel-backend
+  name: optimus-travel-frontend
   labels:
-    app: optimus-travel-backend
+    app: optimus-travel-frontend
     env: dev
 spec:
   selector:
     matchLabels:
-      app: optimus-travel-backend
+      app: optimus-travel-frontend
   template:
     metadata:
       labels:
-        app: optimus-travel-backend
+        app: optimus-travel-frontend
     spec:
       containers:
-      - name: backend
-        image: nijusupai/optimus-travel:latest
+      - name: frontend
+        # env:
+        # - name: REACT_APP_APIHOSTPORT
+        #   value: http://52.226.198.63:3000
+        image: nijusupai/optimus-travel-front-end:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /
-            port: 3000
+            port: 80
           initialDelaySeconds: 10
           periodSeconds: 5
         readinessProbe:
           httpGet:
             path: /
-            port: 3000
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
           successThreshold: 1

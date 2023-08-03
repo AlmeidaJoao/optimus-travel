@@ -85,10 +85,11 @@ To enable deployment on Kubernetes container images had to be built and pushed t
 For the backend it was straight forward approach, the `backend/Dockerfile` has the instructions to build the image - I've included the the environment variables there for 
 demonstration purposes(🤫 this is our secret)
 
-### Kubernetes 
-Having the images built and pushed to the container registry of your choice, write your manifest files and just `kubectl` them
+### Kubernetes ⚓
+Having the images built and pushed to the container registry of your choice, write your manifest files and just `kubectl` them.
+The `deployment` directory contains the manifest files used for this specific project.
 
-## Automation
+## Automation 🔁
 For each component of the application I've written continuous integration workflows that simplify, the process of image creation and building.
 ```mermaid
 flowchart TD
@@ -96,10 +97,12 @@ A[On code push or manual dispatch] -->|Trigger Workflow| B(Build Docker Image)
 B --> |Push Image to DockerHub| C[Docker registry]
  ```
 
-## Demo
+**Manual Dispatch** - given the fact that the API Host must be set in the frontend, I chose to trigger this workflow manually. 
+
+## Demo 🛝
 If you are just curious to see a running version of the App, check the following link: [Optimus Travel](http://optimus-travel.almeidadealmeida.com/)
 
-## Documentation
+## Documentation 📄
 Documentation regarding the API can be found on the link below:
 [Documentation](https://documenter.getpostman.com/view/11999124/2s9XxwxaCw)
 

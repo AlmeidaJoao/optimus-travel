@@ -1,0 +1,10 @@
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: optimus-travel-frontend
+  ports:
+    - port: 80
+      targetPort: 80

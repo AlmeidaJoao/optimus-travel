@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: optimus-travel-backend
+  ports:
+    - port: 3000
+      targetPort: 3000
