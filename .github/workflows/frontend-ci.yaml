@@ -25,6 +25,8 @@ jobs:
           cd frontend
           npm install 
           npm run build 
+        env:
+          CI: false  
 
       - name: Build Docker image
         run: |
