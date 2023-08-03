@@ -25,10 +25,9 @@ const auth = async(req, res, next) => {
     })
     req.user = user.toJSON()
     req.token = token
-    console.log(token)
+
     next()
   } catch (e) {    
-    // Non authenticated users
     // req.isAuthenticated = false
     // next()
     res.status(401).send('Not authenticated')
