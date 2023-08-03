@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class ExchangeInformation extends Component {
-  constructor () {
+  constructor() {
     super();
 
     this.state = {
@@ -11,13 +11,13 @@ class ExchangeInformation extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetchExchangeData();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.searchResult !== prevProps.searchResult) {
-      this.setState({ loaded: false})
+      this.setState({ loaded: false })
       this.fetchExchangeData();
     }
   }
@@ -44,7 +44,7 @@ class ExchangeInformation extends Component {
   }
 
 
-  render () {
+  render() {
     const { exchangeData, loaded } = this.state;
     if (!loaded) {
       return <div>Loading...</div>;
@@ -53,10 +53,11 @@ class ExchangeInformation extends Component {
     if (!exchangeData) {
       return <div>No Exchange data available for this location.</div>;
     }
-    const {base, rates} = exchangeData;
-      return (
-        <div class="container">
-          <h2>{this.props.name}</h2>
+    const { base, rates } = exchangeData;
+    return (
+      <div class="card  border-success mb-3">
+        <div class="card-body">
+        <h5 class="card-title">Exchange data💹</h5>
 
           <p><b>Base Currency</b>: {base}</p>
           <p><b>Exchange Rates</b>:</p>
@@ -78,7 +79,8 @@ class ExchangeInformation extends Component {
             </div>
           </div>
         </div>
-      )
+      </div>
+    )
     // }
   }
 }

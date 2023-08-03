@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class PopulationInformation extends Component {
-  constructor () {
+  constructor() {
     super();
 
     this.state = {
@@ -11,13 +11,13 @@ class PopulationInformation extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetchPopulationData();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.searchResult !== prevProps.searchResult) {
-      this.setState({ loaded: false})
+      this.setState({ loaded: false })
       this.fetchPopulationData();
     }
   }
@@ -40,10 +40,10 @@ class PopulationInformation extends Component {
           populationData: null,
           loaded: true,
         });
-      }); 
+      });
   }
 
-  render () {
+  render() {
     const { populationData, loaded } = this.state;
     if (!loaded) {
       return <div>Loading...</div>;
@@ -53,13 +53,13 @@ class PopulationInformation extends Component {
       return <div>No Population data available for this location.</div>;
     }
     const { population, gdp } = populationData
-      return (
-        <div class="container">
-          <h2>{this.props.name}</h2>
+    return (
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Population and GDP🧑‍🤝‍🧑</h5>
+          <p class="card-text"><b>Population</b>: {population}</p>
+          <p class="card-text"><b>GDP</b>: ${gdp}</p>
 
-          <p><b>Population</b>: {population}</p>
-          <p><b>GDP</b>: {gdp}</p>
-          
           <div class="container">
             <div class="row">
               <div class="col">
@@ -70,7 +70,8 @@ class PopulationInformation extends Component {
             </div>
           </div>
         </div>
-      )
+      </div>
+    )
     // }
   }
 }
