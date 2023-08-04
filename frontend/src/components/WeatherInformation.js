@@ -63,7 +63,7 @@ class WeatherInformation extends Component {
           {/* <p><Vote id={this.props.id}/></p> */}
           <h5 class="card-title">Current weather 🌡️</h5>
           <p class="card-text"><b>Location name</b>: {placeName} </p>
-          <p class="card-text"><b>Current temp.</b>: {temperature} ºC</p>
+          <p class="card-text"><b>Current temp.</b>: {temperature} &#176;C</p>
           <p class="card-text"><b>Current atmospheric pressure</b>: {pressure}</p>
           <p class="card-text"><b>Humidity</b>: {humidity}</p>
           <p class="card-text"><b>Wind Speed</b>: {wind_speed} m/s</p>
