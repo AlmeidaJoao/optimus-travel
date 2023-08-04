@@ -25,9 +25,13 @@ class PopulationInformation extends Component {
 
   fetchPopulationData() {
     const apiUrl = `${process.env.REACT_APP_APIHOSTPORT}/travel/population?location=${this.props.searchResult}`;
-
+    
     axios
-      .get(apiUrl)
+      .get(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${this.props.token}`
+        }
+      })
       .then((response) => {
         this.setState({
           populationData: response.data,

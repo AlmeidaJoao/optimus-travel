@@ -25,9 +25,14 @@ class ExchangeInformation extends Component {
 
   fetchExchangeData() {
     const apiUrl = `${process.env.REACT_APP_APIHOSTPORT}/travel/exchange?location=${this.props.searchResult}`;
-
+    
+    console.log(this.props.token)
     axios
-      .get(apiUrl)
+      .get(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${this.props.token}`
+        }
+      })
       .then((response) => {
         this.setState({
           exchangeData: response.data,
