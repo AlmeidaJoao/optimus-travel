@@ -3,7 +3,7 @@ const axios = require('axios')
 const countriesList = require('countries-list').countries
 
 /**
- * Retrieves weather forecast data for a given location using the OpenWeatherMap API and Mapbox Geocoding API.
+ * Retrieves weather forecast data of given location using the OpenWeatherMap API and Mapbox Geocoding API.
  * @async
  * @param {import('express').Request} req - The request object.
  * @param {import('express').Response} res - The response object.
