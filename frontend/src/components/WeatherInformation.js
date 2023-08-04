@@ -64,15 +64,15 @@ class WeatherInformation extends Component {
           <h5 class="card-title">Current weather 🌡️</h5>
           <p class="card-text"><b>Location name</b>: {placeName} </p>
           <p class="card-text"><b>Current temp.</b>: {temperature} &#176;C</p>
-          <p class="card-text"><b>Current atmospheric pressure</b>: {pressure}</p>
-          <p class="card-text"><b>Humidity</b>: {humidity}</p>
+          <p class="card-text"><b>Current atmospheric pressure</b>: {pressure} hPa</p>
+          <p class="card-text"><b>Humidity</b>: {humidity} %</p>
           <p class="card-text"><b>Wind Speed</b>: {wind_speed} m/s</p>
           <p class="card-text"><b>Description</b>: {description}</p>
           <div card="card text-bg-dark">
             <div class="card-body">
             <h5 class="card-title">Daily forecast🌞</h5>
-              <p class="card-text"><b>Maximimum temperature</b>: {max_temp}ºC</p>
-              <p class="card-text"><b>Minimum temperature</b>: {min_temp}ºC</p>
+              <p class="card-text"><b>Maximimum temperature</b>: {max_temp}&#176;C</p>
+              <p class="card-text"><b>Minimum temperature</b>: {min_temp}&#176;C</p>
               <p class="card-text"><b>Description</b>: {daily_description}</p>
             </div>
           </div>
