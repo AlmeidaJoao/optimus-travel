@@ -20,7 +20,7 @@ Below are some stuff you need to ensure before running the project:
 ### Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/AlmeidaJoao/optimus-travel
 ```
 
 ### 1. Backend
