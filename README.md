@@ -96,6 +96,7 @@ The `deployment` directory contains the manifest files used for this specific pr
 
 ## Automation 🔁
 For each component of the application I've written continuous integration workflows that simplify, the process of image creation and building.
+The workflow definitions are on the `.github/workflows` directory.
 ```mermaid
 flowchart TD
 A[On code push or manual dispatch] -->|Trigger Workflow| B(Build Docker Image)
