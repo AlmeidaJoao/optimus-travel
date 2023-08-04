@@ -1,8 +1,8 @@
 FROM node:18
 
-ENV DB_USER="admin"
-ENV DB_PASSWORD="admin123"
-ENV DB_HOST="database-1.cxst1clbdewv.us-west-2.rds.amazonaws.com"
+ENV DB_USER="almeida"
+ENV DB_PASSWORD="@lmeida09"
+ENV DB_HOST="optimus-travel-db.mysql.database.azure.com"
 ENV DB_PORT="3306"
 ENV DB_NAME=database-1
 ENV JWT_SECRET="supersecret"

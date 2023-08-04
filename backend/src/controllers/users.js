@@ -54,7 +54,8 @@ exports.getUser = async (req, res) => {
  */
 exports.logout = async (req, res) => {
   try {
-    await Token.destroy({where: { token_id: req.token}})
+    console.log(req.user.user_id)
+    await Token.destroy({where: { user_id: req.user.user_id}})
     res.send()
   } catch(e) {
     res.status(400).send()

@@ -45,17 +45,6 @@ User.init({
     primaryKey: true,
     defaultValue: DataTypes.UUIDV1,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  surname: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  about: {
-    type: DataTypes.TEXT
-  },
   email: {
     type: DataTypes.STRING,
     unique: {

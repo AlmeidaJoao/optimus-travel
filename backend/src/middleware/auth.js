@@ -6,6 +6,7 @@ const {User, Token} = require('../models/users')
 
 const auth = async(req, res, next) => {
   try {
+
     const token = req.header('Authorization').replace('Bearer ', '')
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
@@ -25,11 +26,8 @@ const auth = async(req, res, next) => {
     })
     req.user = user.toJSON()
     req.token = token
-
     next()
   } catch (e) {    
-    // req.isAuthenticated = false
-    // next()
     res.status(401).send('Not authenticated')
   }
 }

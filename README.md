@@ -2,6 +2,7 @@
 A simple travel assistant where users can query a given city and get relevant information about the desired location.
 
 # Preview
+![App Screenshot](docs/video.gif)
 ![App Screenshot](docs/screenshot.png)
 
 ## Tech Stack
