@@ -47,7 +47,7 @@ Install dependencies
 Start the server
 
 ```bash
-  src/index.js
+  node src/index.js
 ```
 
 ### Frontend
@@ -75,11 +75,15 @@ npm start
 
 ## Deployment
 
-For demonstratation purposes the App was deployed on Kubernetes, but you can of course deploy it anywhere.
+For demonstratation purposes the App was deployed on **Kubernetes**, but you can of course deploy it anywhere.
 To enable deployment on Kubernetes container images had to be built and pushed to a container registry(DockerHub).
+Below are the links for the images:
+* Backend: [Backend](https://hub.docker.com/repository/docker/nijusupai/optimus-travel/general)
+* Frontend: [Frontend](https://hub.docker.com/repository/docker/nijusupai/optimus-travel-front-end/general)
+
 
 ### Frontend
-1. Build production ready files - instead of running the frontend as a node app, a better approach is building the static files using the command `npm run build`
+1. **Build production ready files** - instead of running the frontend as a node app, a better approach is building the static files using the command `npm run build`
 2. Dockerfile - contains the instructions to build the container image. `frontend/Dockerfile`
 
 ### Backend
@@ -98,12 +102,14 @@ A[On code push or manual dispatch] -->|Trigger Workflow| B(Build Docker Image)
 B --> |Push Image to DockerHub| C[Docker registry]
  ```
 
-**Manual Dispatch** - given the fact that the API Host must be set in the frontend, I chose to trigger this workflow manually. 
+**Manual Dispatch** - to allow running the workflow manually whenever needed. This was applied for the `frontend`. 
 
 ## Demo 🛝
-If you are just curious to see a running version of the App, check the following link: [Optimus Travel](http://optimus-travel.almeidadealmeida.com/)
+If you are just curious to see a running version of the App, check the following link: 
+* Frontend: [Optimus Travel](http://optimus-travel.almeidadealmeida.com/)
+* API: [Optimus Travel API](http://ae0542c60886142cd990ea5dffd4e4d6-1253884970.us-west-2.elb.amazonaws.com:3000)
 
-## Documentation 📄
+## API Reference 📄
 Documentation regarding the API can be found on the link below:
 [Documentation](https://documenter.getpostman.com/view/11999124/2s9XxwxaCw)
 
